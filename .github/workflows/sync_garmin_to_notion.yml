@@ -47,5 +47,15 @@ jobs:
         run: |
           python garmin-activities.py
           python personal-records.py
-          python daily-steps.py
-          python sleep-data.py
+        
+          if [ -n "$NOTION_STEPS_DB_ID" ]; then
+            python daily-steps.py
+          else
+            echo "Skipping daily-steps.py (NOTION_STEPS_DB_ID not set)"
+          fi
+        
+          if [ -n "$NOTION_SLEEP_DB_ID" ]; then
+            python sleep-data.py
+          else
+            echo "Skipping sleep-data.py (NOTION_SLEEP_DB_ID not set)"
+          fi
